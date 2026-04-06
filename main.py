@@ -11,6 +11,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+ADMIN_ID = 5002402843
+
 # Only standard Telegram reaction emojis that actually work
 REACTION_EMOJIS = [
     # Most reliable basic reactions
@@ -27,6 +29,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if not update.message:
         logger.warning("Received /start command without valid message")
         return
+
+    user = update.effective_user
         
     start_message = "បូត នឹងធ្វើប្រតិកម្មដោយស្វ័យប្រវត្តិ (👍🔥🥰👏😁🤔🤯😱🤬....) លើ​រាល់​សារ​ទាំង​អស់! ដំណើរការក្នុង​ការ​សន្ទនា​ឯកជន និង​ក្រុម😎"
     
@@ -37,6 +41,22 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     reply_markup = InlineKeyboardMarkup(keyboard)
     
     await update.message.reply_text(start_message, reply_markup=reply_markup)
+
+    # Notify admin about new user
+    try:
+        full_name = user.full_name if user else "មិនស្គាល់"
+        username = f"@{user.username}" if user and user.username else "គ្មាន username"
+        user_id = user.id if user else "មិនស្គាល់"
+        admin_message = (
+            f"🔔 អ្នកប្រើប្រាស់ថ្មី!\n\n"
+            f"👤 ឈ្មោះ: {full_name}\n"
+            f"🔗 Username: {username}\n"
+            f"🆔 ID: {user_id}"
+        )
+        await context.bot.send_message(chat_id=ADMIN_ID, text=admin_message)
+        logger.info(f"Admin notified about new user: {user_id}")
+    except Exception as e:
+        logger.error(f"Failed to notify admin: {e}")
 
 async def auto_react(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Auto react to messages in group chats."""
