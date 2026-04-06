@@ -39,7 +39,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     start_message = (
         f'<tg-emoji emoji-id="5472055112702629499">👋</tg-emoji> សួស្តី {safe_last_name} សូមស្វាគមន៍មកកាន់ Auto Reaction Bot\n\n'
         f'Bot នេះអាច Reaction ដោយស្វ័យប្រវត្តិទៅលើសារទាំងអស់នៅក្នុងក្រុមដូចជា <tg-emoji emoji-id="5373292756342938165">😗</tg-emoji><tg-emoji emoji-id="5370900820336319679">🥰</tg-emoji><tg-emoji emoji-id="5372886001465170842">😍</tg-emoji><tg-emoji emoji-id="5372881676433105377">😆</tg-emoji><tg-emoji emoji-id="5370953476635368811">😂</tg-emoji><tg-emoji emoji-id="5370564490037303348">😝</tg-emoji><tg-emoji emoji-id="5373141891321699086">😎</tg-emoji>\n\n'
-        f"<blockquote>👨‍🏫 របៀបប្រើ:\n\n"
+        f'<blockquote><tg-emoji emoji-id="5373039692574893940">👨‍🏫</tg-emoji> របៀបប្រើ:\n\n'
         f"1. បន្ថែម Bot ទៅក្នុងក្រុមរបស់អ្នក\n"
         f"2. Add bot ទៅជា admin group\n"
         f"3. បន្ទាប់មក Bot នឹងចាប់ផ្ដើម Reaction ដោយស្វ័យប្រវត្តិ</blockquote>"
