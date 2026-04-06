@@ -1,7 +1,10 @@
 import sys
 import os
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add project root to Python path so bot_handlers can be imported
+root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if root_dir not in sys.path:
+    sys.path.insert(0, root_dir)
 
 import json
 import asyncio
@@ -41,7 +44,7 @@ class handler(BaseHTTPRequestHandler):
             logger.error(f"Webhook error: {e}")
             self.send_response(500)
             self.end_headers()
-            self.wfile.write(b'Internal Server Error')
+            self.wfile.write(f'Error: {str(e)}'.encode())
 
     def do_GET(self):
         self.send_response(200)
@@ -49,4 +52,4 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(b'Auto Reaction Bot webhook is active!')
 
     def log_message(self, format, *args):
-        logger.info(f"Vercel request: {format % args}")
+        logger.info(f"Vercel: {format % args}")
