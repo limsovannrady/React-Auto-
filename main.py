@@ -11,7 +11,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-ADMIN_ID = 5002402843
+ADMIN_ID = int(os.getenv('ADMIN_ID', '5002402843'))
 
 # Only standard Telegram reaction emojis that actually work
 REACTION_EMOJIS = [
@@ -31,8 +31,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
 
     user = update.effective_user
-        
-    start_message = "បូត នឹងធ្វើប្រតិកម្មដោយស្វ័យប្រវត្តិ (👍🔥🥰👏😁🤔🤯😱🤬....) លើ​រាល់​សារ​ទាំង​អស់! ដំណើរការក្នុង​ការ​សន្ទនា​ឯកជន និង​ក្រុម😎"
+
+    last_name = user.last_name if user and user.last_name else (user.first_name if user and user.first_name else "មិត្ត")
+
+    start_message = (
+        f"👋 សួស្តី {last_name} សូមស្វាគមន៍មកកាន់ Auto Reaction Bot\n\n"
+        f"Bot នេះអាច Reaction ដោយស្វ័យប្រវត្តិទៅលើសារទាំងអស់នៅក្នុងក្រុមដូចជា 😗🥰😍😆😂😝😎\n\n"
+        f"👨‍🏫 របៀបប្រើ:\n\n"
+        f"1. បន្ថែម Bot ទៅក្នុងក្រុមរបស់អ្នក\n"
+        f"2. Add bot ទៅជា admin group\n"
+        f"3. បន្ទាប់មក Bot នឹងចាប់ផ្ដើម Reaction ដោយស្វ័យប្រវត្តិ"
+    )
     
     # Create inline keyboard with "Add bot to Group" button
     keyboard = [
