@@ -11,7 +11,7 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### Bot Framework
-- **Technology**: Python with python-telegram-bot library
+- **Technology**: Python with python-telegram-bot library (>=22.3)
 - **Design Pattern**: Event-driven architecture using handlers
 - **Rationale**: The python-telegram-bot library provides a robust, well-maintained framework for Telegram bot development with built-in support for webhooks, polling, and comprehensive API coverage.
 
@@ -22,13 +22,24 @@ Preferred communication style: Simple, everyday language.
 
 ### Deployment Architecture
 - **Stateless Design**: No persistent data storage required - the bot operates purely on incoming message events
-- **Environment Configuration**: Uses environment variables for bot token configuration
+- **Environment Configuration**: Uses the `TELEGRAM_BOT_TOKEN` secret for bot authentication
 - **Logging**: Structured logging for monitoring and debugging message processing
+- **Mode**: Long polling (application.run_polling)
 
 ### User Interaction Flow
 - **Onboarding**: /start command provides introduction and group invitation link
 - **Core Functionality**: Automatic reactions to all incoming messages
 - **Group Integration**: Inline keyboard button for easy group addition
+
+## Replit Setup
+
+### Workflow
+- **Name**: Start application
+- **Command**: `python main.py`
+- **Output Type**: console (this is a bot, not a web server)
+
+### Required Secrets
+- `TELEGRAM_BOT_TOKEN`: Your Telegram bot token from @BotFather
 
 ## External Dependencies
 
@@ -37,10 +48,6 @@ Preferred communication style: Simple, everyday language.
 - **Telegram Bot API**: Official Telegram service for bot communication
 
 ### Runtime Environment
-- **Python 3.x**: Runtime environment
-- **Environment Variables**: BOT_TOKEN for authentication
+- **Python 3.11**: Runtime environment
+- **Environment Variables**: TELEGRAM_BOT_TOKEN for authentication
 - **Logging Framework**: Python's built-in logging module for system monitoring
-
-### Deployment Platforms
-- **Cloud Hosting**: Designed for deployment on platforms like Replit, Heroku, or similar PaaS providers
-- **Webhook Support**: Can be configured for webhook-based or polling-based message reception
