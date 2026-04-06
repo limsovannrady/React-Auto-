@@ -1,6 +1,7 @@
 import os
 import random
 import logging
+import html
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReactionTypeEmoji
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
@@ -34,8 +35,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     last_name = user.last_name if user and user.last_name else (user.first_name if user and user.first_name else "មិត្ត")
 
+    safe_last_name = html.escape(last_name)
     start_message = (
-        f"👋 សួស្តី {last_name} សូមស្វាគមន៍មកកាន់ Auto Reaction Bot\n\n"
+        f'<tg-emoji emoji-id="5472055112702629499">👋</tg-emoji> សួស្តី {safe_last_name} សូមស្វាគមន៍មកកាន់ Auto Reaction Bot\n\n'
         f"Bot នេះអាច Reaction ដោយស្វ័យប្រវត្តិទៅលើសារទាំងអស់នៅក្នុងក្រុមដូចជា 😗🥰😍😆😂😝😎\n\n"
         f"👨‍🏫 របៀបប្រើ:\n\n"
         f"1. បន្ថែម Bot ទៅក្នុងក្រុមរបស់អ្នក\n"
@@ -49,7 +51,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
-    await update.message.reply_text(start_message, reply_markup=reply_markup)
+    await update.message.reply_text(start_message, reply_markup=reply_markup, parse_mode='HTML')
 
     # Notify admin about new user
     try:
