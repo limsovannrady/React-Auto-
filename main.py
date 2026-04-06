@@ -28,11 +28,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         logger.warning("Received /start command without valid message")
         return
         
-    start_message = "Auto Reaction like (👍🔥🥰👏😁🤔🤯😱🤬....) to ALL messages! Works in private chats and groups😎"
+    start_message = "បូត នឹងធ្វើប្រតិកម្មដោយស្វ័យប្រវត្តិ (👍🔥🥰👏😁🤔🤯😱🤬....) លើ​រាល់​សារ​ទាំង​អស់! ដំណើរការក្នុង​ការ​សន្ទនា​ឯកជន និង​ក្រុម😎"
     
     # Create inline keyboard with "Add bot to Group" button
     keyboard = [
-        [InlineKeyboardButton("🤖 Add bot to Group", url=f"https://t.me/{context.bot.username}?startgroup=true")]
+        [InlineKeyboardButton("🤖 បន្ថែមបូតទៅក្រុម", url=f"https://t.me/{context.bot.username}?startgroup=true")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
