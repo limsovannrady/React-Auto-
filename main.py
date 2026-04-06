@@ -60,8 +60,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             parse_mode='HTML',
             message_effect_id=effect_id
         )
-    except Exception:
-        # Fallback without effect (e.g. in group chats)
+    except Exception as effect_error:
+        logger.warning(f"Effect failed ({effect_error}), sending without effect")
         await update.message.reply_text(
             start_message,
             reply_markup=reply_markup,
