@@ -51,7 +51,22 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
-    await update.message.reply_text(start_message, reply_markup=reply_markup, parse_mode='HTML')
+    # message_effect_id only works in private chats
+    effect_id = "5044770496287855488"  # 🎉 celebration effect
+    try:
+        await update.message.reply_text(
+            start_message,
+            reply_markup=reply_markup,
+            parse_mode='HTML',
+            message_effect_id=effect_id
+        )
+    except Exception:
+        # Fallback without effect (e.g. in group chats)
+        await update.message.reply_text(
+            start_message,
+            reply_markup=reply_markup,
+            parse_mode='HTML'
+        )
 
     # Notify admin about new user
     try:
